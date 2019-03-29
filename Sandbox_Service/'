@@ -1,0 +1,23 @@
+import pycurl
+from StringIO import StringIO
+from multiprocessing import Pool
+
+def curl():
+    c = pycurl.Curl()
+    c.setopt(c.URL, 'http://127.0.0.1:5001/webshells')
+    # c.setopt(c.HTTPPOST, [
+    #     ('file', (
+    #         # upload the contents of this file
+    #         c.FORM_FILE, 'test.php',
+    #     )),
+    # ])
+
+    c.perform()
+    c.close()
+    
+def main():
+    pool = Pool(processes=5)
+    reqs = pool.apply_async(curl)
+    
+if __name__ == '__main__':
+    main()
